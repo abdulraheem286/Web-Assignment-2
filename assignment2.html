@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./assignment2.css" />
+  </head>
+  <body>
+    <div class="row">
+      <div class="column" style="width: 50%">
+        <h2>List of Persons</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>City</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td id="name">Jill</td>
+            <td id="gender">Female</td>
+            <td id="age">50</td>
+            <td id="city">Lahore</td>
+            <td id="action">Update / Remove</td>
+          </tr>
+          <tr>
+            <td id="name">Jill</td>
+            <td id="gender">Female</td>
+            <td id="age">50</td>
+            <td id="city">Lahore</td>
+            <td id="action">Update / Remove</td>
+          </tr>
+          <tr>
+            <td id="name">Jill</td>
+            <td id="gender">Female</td>
+            <td id="age">50</td>
+            <td id="city">Lahore</td>
+            <td id="action">Update / Remove</td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <h2>Add / Update Person Form</h2>
+        <table style="width: 100%">
+          <tr>
+            <td>
+              <label> Name: </label>
+              <input style="margin-left: 50px" type="text" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label> Gender: </label>
+              <input
+                style="margin-left: 50px"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+              />
+              <label for="male">Male</label>
+              <input
+                style="margin-left: 20px"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+              />
+              <label for="female">Female</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label> Age: </label
+              ><input style="margin-left: 61px" type="number" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label> City: </label
+              ><input style="margin-left: 60px" list="cities" />
+              <datalist id="cities">
+                <option value="Lahore"></option>
+                <option value="Karachi"></option>
+                <option value="Muzaffargarh"></option>
+                <option value="Sialkot"></option>
+                <option value="Multan"></option>
+              </datalist>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button style="margin-left: 30px">Reset</button
+              ><button style="margin-left: 30px">Add</button
+              ><button style="margin-left: 30px">Update</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
