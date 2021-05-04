@@ -9,11 +9,13 @@ window.onload = function () {
 
 function handleAdd() {
   var table = document.getElementById("table");
-  var aaa = document.getElementById("age").value;
-  if (aaa < 18) {
+  var ageval = document.getElementById("age").value;
+
+  if (ageval >= 18 && ageval <= 65) {
     alert("age not correct");
     return;
   }
+
   var data = table.insertRow(-1);
   var name = data.insertCell(0);
   var gender = data.insertCell(1);
@@ -23,7 +25,6 @@ function handleAdd() {
 
   name.innerHTML = $("#name").val();
   gender.innerHTML = $("input[type='radio'][name='gender']:checked").val();
-
   age.innerHTML = $("#age").val();
   city.innerHTML = $("#city option:selected").val();
 
@@ -33,7 +34,6 @@ function handleAdd() {
   btnupd.value = "update";
   btnupd.onclick = update_row;
   data.appendChild(btnupd);
-
   action.appendChild(btnupd);
 
   var btndel = document.createElement("input");
@@ -42,7 +42,6 @@ function handleAdd() {
   btndel.value = "Delete";
   btndel.onclick = delete_row;
   data.appendChild(btndel);
-
   action.appendChild(btndel);
 }
 
@@ -60,4 +59,6 @@ function reset_table() {
 
 function update_row() {
   console.log("update row");
+  $("#update").removeClass("disabled");
+  $("#add").addClass("disabled");
 }
