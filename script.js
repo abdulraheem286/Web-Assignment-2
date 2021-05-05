@@ -70,6 +70,7 @@ function update_row(e) {
   $("#updateMain").prop("disabled", false);
   $("#add").prop("disabled", true);
   $("#reset").prop("disabled", true);
+  $(".btndelete").prop("disabled", true);
 
   var rowupdating = e.target.parentNode.parentNode;
   var updatingarray = [];
@@ -99,6 +100,9 @@ function update_row(e) {
 
   //updating values of table from form
   $("#updateMain").click(function () {
+    if (validations() == false) {
+      return false;
+    }
     updatingarray[0].innerText = $("#name").val();
     updatingarray[1].innerText = $(
       "input[type='radio'][name='gender']:checked"
@@ -110,8 +114,9 @@ function update_row(e) {
 
     $("#add").prop("disabled", false);
     $("#updateMain").prop("disabled", true);
-    $("#reset").prop("disabled", true);
-    reset_table;
+    $("#reset").prop("disabled", false);
+    $(".btndelete").prop("disabled", false);
+    reset_table();
   });
 
   return false;
@@ -119,20 +124,38 @@ function update_row(e) {
 
 function validations() {
   var val = $("#name").val();
-  if (!val.match(/^[a-zA-Z]+$/)) {
-    alert("Only Lower and Upper Case Alphabets Allowed with Limit: 1-10");
+  if (!val.match(/^[a-zA-Z]+$/) || val.length > 10 || val.length < 1) {
+    document.getElementById("validation").innerHTML =
+      "Error: \nOnly Lower and Upper Case Alphabets Allowed\nwith Limit: 1-10";
+    timeout();
+    return false;
+  }
+
+  var genderval = $("input[type='radio'][name='gender']:checked").val();
+  if (genderval == null) {
+    document.getElementById("validation").innerHTML = "Error: \nSelect Gender";
+    timeout();
     return false;
   }
 
   var ageval = $("#age").val();
   if (ageval <= 10 || ageval >= 50) {
-    alert("Age not correct");
+    document.getElementById("validation").innerHTML =
+      "Error: \nAge not Correct (10-50)";
+    timeout();
     return false;
   }
 
   var selval = $("#city").val();
   if (selval == "") {
-    alert("Select City");
+    document.getElementById("validation").innerHTML = "Error: \nSelect a City";
+    timeout();
     return false;
   }
+}
+
+function timeout() {
+  setTimeout(function () {
+    document.getElementById("validation").innerHTML = "";
+  }, 2200);
 }
