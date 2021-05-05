@@ -3,30 +3,13 @@ window.onload = function () {
   addBtn.onclick = handleAdd;
   var resetBtn = document.getElementById("reset");
   resetBtn.onclick = reset_table;
-  //   var updbtn = document.getElementById("update");
-  //   updbtn.onclick = update_row;
 };
 
 function handleAdd() {
   var table = document.getElementById("table");
 
-  // Validations;
-  var val = document.getElementById("name").value;
-  if (!val.match(/^[a-zA-Z]+$/)) {
-    alert("Only Alphabets Allowed");
+  if (validations() == false) {
     return false;
-  }
-
-  var ageval = $("#age").val();
-  if (ageval <= 10 || ageval >= 50) {
-    alert("Age not correct");
-    return;
-  }
-
-  var selval = $("#city").val();
-  if (selval == "") {
-    alert("Select City");
-    return;
   }
 
   //Insert DATA
@@ -58,6 +41,7 @@ function handleAdd() {
   data.appendChild(btndel);
   action.appendChild(btndel);
 
+  reset_table();
   return false;
 }
 
@@ -71,31 +55,82 @@ function delete_row() {
 function reset_table() {
   $('.form input[type="text"]').val("");
   $('.form input[type="number"]').val("");
-  // $('.form input[type="radio"]').val("");
   $(".form select").val("");
+  document.getElementById("male").checked = false;
+  document.getElementById("female").checked = false;
   console.log("reset");
   return false;
+  //To clear all table
   // $("#table td").remove();
 }
 
-function update_row() {
-  console.log("update row");
+function update_row(e) {
+  console.log("update row button clicked");
 
-  $("#updateMain").removeClass("disabled");
+  $("#updateMain").prop("disabled", false);
   $("#add").prop("disabled", true);
 
-  //code for updating row
-  // var rowId = event.target.parentNode.parentNode.id;
-  //this gives id of tr whose button was clicked
-  // var data = document.getElementById(rowId).querySelectorAll(".row-data");
-  /*returns array of all elements with 
-"row-data" class within the row with given id*/
+  var rowupdating = e.target.parentNode.parentNode;
+  var updatingarray = [];
 
-  // var name = data[0].innerHTML;
-  // var age = data[1].innerHTML;
+  for (let i = 0; i < rowupdating.childNodes.length; i++) {
+    var object = rowupdating.childNodes[i];
+    if (object.tagName == undefined) continue;
+    updatingarray.push(object);
+  }
 
-  // alert("Name: " + name + "\nAge: " + age);
+  //Getting Elements from table
+  var updname = updatingarray[0].innerText;
+  var updgender = updatingarray[1].innerText;
+  var updage = updatingarray[2].innerText;
+  var updcity = updatingarray[3].innerText;
 
-  $("#add").prop("disabled", false);
+  //Insereting Elements into form from table
+  document.getElementById("name").value = updname;
+  document.getElementById("age").value = updage;
+  document.getElementById("city").value = updcity;
+
+  if (updgender == "male") {
+    document.getElementById("male").checked = true;
+  } else {
+    document.getElementById("female").checked = true;
+  }
+
+  //updating values of table from form
+  $("#updateMain").click(function () {
+    updatingarray[0].innerText = $("#name").val();
+    updatingarray[1].innerText = $(
+      "input[type='radio'][name='gender']:checked"
+    ).val();
+    updatingarray[2].innerText = $("#age").val();
+    updatingarray[3].innerText = $("#city option:selected").val();
+
+    console.log("Updated Row Values");
+
+    $("#add").prop("disabled", false);
+    $("#updateMain").prop("disabled", true);
+    reset_table;
+  });
+
   return false;
+}
+
+function validations() {
+  var val = $("#name").val();
+  if (!val.match(/^[a-zA-Z]+$/)) {
+    alert("Only Alphabets Allowed");
+    return false;
+  }
+
+  var ageval = $("#age").val();
+  if (ageval <= 10 || ageval >= 50) {
+    alert("Age not correct");
+    return false;
+  }
+
+  var selval = $("#city").val();
+  if (selval == "") {
+    alert("Select City");
+    return false;
+  }
 }
