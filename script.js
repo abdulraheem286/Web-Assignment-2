@@ -28,7 +28,7 @@ function handleAdd() {
   var btnupd = document.createElement("input");
   btnupd.type = "button";
   btnupd.className = "btn btn-danger btnupdate";
-  btnupd.value = "update";
+  btnupd.value = "Update";
   btnupd.onclick = update_row;
   data.appendChild(btnupd);
   action.appendChild(btnupd);
@@ -69,6 +69,7 @@ function update_row(e) {
 
   $("#updateMain").prop("disabled", false);
   $("#add").prop("disabled", true);
+  $("#reset").prop("disabled", true);
 
   var rowupdating = e.target.parentNode.parentNode;
   var updatingarray = [];
@@ -109,6 +110,7 @@ function update_row(e) {
 
     $("#add").prop("disabled", false);
     $("#updateMain").prop("disabled", true);
+    $("#reset").prop("disabled", true);
     reset_table;
   });
 
@@ -118,7 +120,7 @@ function update_row(e) {
 function validations() {
   var val = $("#name").val();
   if (!val.match(/^[a-zA-Z]+$/)) {
-    alert("Only Alphabets Allowed");
+    alert("Only Lower and Upper Case Alphabets Allowed with Limit: 1-10");
     return false;
   }
 
