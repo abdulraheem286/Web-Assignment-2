@@ -125,37 +125,27 @@ function update_row(e) {
 function validations() {
   var val = $("#name").val();
   if (!val.match(/^[a-zA-Z]+$/) || val.length > 10 || val.length < 1) {
-    document.getElementById("validation").innerHTML =
-      "Error: \nOnly Lower and Upper Case Alphabets Allowed\nwith Limit: 1-10";
-    timeout();
+    alert(
+      "Error: Only Lower and Upper Case Alphabets Allowed\nwith Limit: 1-10"
+    );
     return false;
   }
 
   var genderval = $("input[type='radio'][name='gender']:checked").val();
   if (genderval == null) {
-    document.getElementById("validation").innerHTML = "Error: \nSelect Gender";
-    timeout();
+    alert("Error: Select Gender");
     return false;
   }
 
   var ageval = $("#age").val();
   if (ageval <= 10 || ageval >= 50) {
-    document.getElementById("validation").innerHTML =
-      "Error: \nAge not Correct (10-50)";
-    timeout();
+    alert("Error: Age not Correct (10-50)");
     return false;
   }
 
   var selval = $("#city").val();
   if (selval == "") {
-    document.getElementById("validation").innerHTML = "Error: \nSelect a City";
-    timeout();
+    alert("Error: Select a City");
     return false;
   }
-}
-
-function timeout() {
-  setTimeout(function () {
-    document.getElementById("validation").innerHTML = "";
-  }, 2200);
 }
